@@ -1,0 +1,21 @@
+services:
+  iconserver:
+    image: "matthiasluedtke/iconserver:v3.20.0"
+    networks:
+      - mynetwork
+
+  nginx:
+    image: "nginx:alpine"
+    ports:
+      - "443:443"
+    volumes:
+      - ./certs/:/certs/
+      - ./configs/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - iconserver
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

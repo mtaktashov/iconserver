@@ -1,0 +1,19 @@
+- name: Choose tasks for distro
+  include_tasks: "{{ ansible_facts['distribution'] }}.yml"
+
+- name: Install Docker
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker-ce 
+    - docker-ce-cli 
+    - containerd.io 
+    - docker-buildx-plugin 
+    - docker-compose-plugin
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: true

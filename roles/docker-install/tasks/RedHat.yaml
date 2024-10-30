@@ -1,0 +1,19 @@
+- name: Install required packages (CentOS/RedHat)
+  yum:
+    name: yum-utils
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Add Docker repository (CentOS)
+  yum_repository:
+    name: docker
+    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Add Docker repository (RedHat)
+  yum_repository:
+    name: docker
+    baseurl: https://download.docker.com/linux/rhel/docker-ce.repo
+    state: present
+  when: ansible_distribution == "RedHat"

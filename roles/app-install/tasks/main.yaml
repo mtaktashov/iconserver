@@ -1,0 +1,26 @@
+- name: Create a directory for app
+  ansible.builtin.file:
+    path: /app
+    state: directory
+    mode: '0755'
+
+- name: Copy docker-compose.yaml
+  copy:
+    src: ./files/docker-compose.yaml
+    dest: /app/docker-compose.yaml
+
+- name: Copy nginx files
+  copy:
+    src: ./files/nginx
+    dest: /app
+  tags:
+    - copy_files
+  notify:
+    - Reload Nginx
+
+- name: Run Docker Compose up
+  community.docker.docker_compose_v2:
+    project_src: /app
+    state: present
+    remove_orphans: true
+

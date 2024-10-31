@@ -1,6 +1,10 @@
 ---
-- name: Install docker
+- name: Install docker and app
   hosts:
     - all
   roles:
-    - docker-install
+    - role: docker-install
+      tags: docker
+    - role: app-install
+      tags: app
+  become: yes

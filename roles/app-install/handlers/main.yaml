@@ -1,0 +1,5 @@
+- name: Reload Nginx
+  community.docker.docker_compose_v2_exec:
+    service: nginx
+    command: /bin/sh -c "nginx -s reload"
+    project_src: /app

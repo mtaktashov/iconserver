@@ -1,11 +1,11 @@
 - name: Install required packages
   apt:
-    name: "{{ item }}"
     update_cache: yes
     state: present
-  loop:
-    - ca-certificates
-    - curl
+    pkg:
+      - ca-certificates
+      - curl
+      - gpg
   when: ansible_os_family == "Debian"
 
 - name: Add Docker GPG key
